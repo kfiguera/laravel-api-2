@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Utils\CanBeRate;
 use App\Utils\CanRate;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasApiTokens, CanRate;
+    use HasFactory, Notifiable, HasApiTokens, CanRate, CanBeRate;
 
     /**
      * The attributes that are mass assignable.

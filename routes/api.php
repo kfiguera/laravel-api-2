@@ -21,3 +21,5 @@ Route::apiResource('products', \App\Http\Controllers\ProductController::class)
     ->middleware('auth:sanctum');
 Route::apiResource('categories', \App\Http\Controllers\CategoryController::class);
 Route::post('login', [\App\Http\Controllers\UserTokenController::class,'login']);
+
+Route::post('newsletter', [\App\Http\Controllers\NewsletterController::class,'send']);
