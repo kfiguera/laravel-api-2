@@ -8,7 +8,7 @@ use App\Notifications\ModelUnRatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendEmailModelUnRatedNotification
+class SendEmailModelUnRatedNotification  implements ShouldQueue
 {
     /**
      * Create the event listener.

@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Events\ModelRated;
 use App\Events\ModelUnRated;
+use App\Jobs\UpdateLastLogin;
 use App\Listeners\SendEmailModelRatedNotification;
 use App\Listeners\SendEmailModelUnRatedNotification;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ModelUnRated::class =>[
             SendEmailModelUnRatedNotification::class,
+        ],
+        Login::class =>[
+            UpdateLastLogin::class,
         ]
     ];
 
