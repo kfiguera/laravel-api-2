@@ -20,4 +20,13 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function booted()
+    {
+        static::creating(function (Product $product){
+            $faker = \Faker\Factory::create();
+            $product->image_url = $faker->imageUrl();
+            $product->createdBy()->asociate(auth()->user());
+        });
+    }
 }
