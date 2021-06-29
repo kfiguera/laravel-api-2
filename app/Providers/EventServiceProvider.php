@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ModelRated;
+use App\Events\ModelUnRated;
 use App\Listeners\SendEmailModelRatedNotification;
+use App\Listeners\SendEmailModelUnRatedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ModelRated::class =>[
             SendEmailModelRatedNotification::class,
+        ],
+        ModelUnRated::class =>[
+            SendEmailModelUnRatedNotification::class,
         ]
     ];
 

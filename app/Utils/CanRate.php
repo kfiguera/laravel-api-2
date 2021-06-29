@@ -5,6 +5,7 @@ namespace App\Utils;
 
 
 use App\Events\ModelRated;
+use App\Events\ModelUnRated;
 use Illuminate\Database\Eloquent\Model;
 
 trait CanRate
@@ -53,6 +54,7 @@ trait CanRate
 
         $this->ratings($model->getMorphClass())->detach($model->getKey());
 
+        event(new ModelUnRated($this,$model));
         return true;
     }
 
