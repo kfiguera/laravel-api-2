@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\ProductOserver;
 use App\Utils\CanBeRate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,14 +20,5 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public static function booted()
-    {
-        static::creating(function (Product $product){
-            $faker = \Faker\Factory::create();
-            $product->image_url = $faker->imageUrl();
-            $product->createdBy()->asociate(auth()->user());
-        });
     }
 }
