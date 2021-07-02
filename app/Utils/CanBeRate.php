@@ -4,6 +4,8 @@
 namespace App\Utils;
 
 
+use App\Models\User;
+
 trait CanBeRate
 {
     public function qualifiers($model = null)
@@ -21,5 +23,9 @@ trait CanBeRate
     public function averageRating(string $model = null)
     {
         return $this->qualifiers($model)->avg('score') ?: 0.0;
+    }
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class);
     }
 }

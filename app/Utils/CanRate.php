@@ -6,6 +6,7 @@ namespace App\Utils;
 
 use App\Events\ModelRated;
 use App\Events\ModelUnRated;
+use App\Exceptions\InvalidScore;
 use Illuminate\Database\Eloquent\Model;
 
 trait CanRate
@@ -37,29 +38,33 @@ trait CanRate
         if ($this->hasRated($model)) {
             return false;
         }
-
+        $from = config('rating.from');
+        $to = config('rating.to');
+        if ($score < $from || $score > $to) {
+            throw new InvalidScore();
+        }
         $this->ratings($model)->attach($model->getKey(), [
             'score' => $score,
             'rateable_type' => get_class($model)
         ]);
-        event(new ModelRated($this,$model,$score));
+        event(new ModelRated($this, $model, $score));
         return true;
     }
 
     public function unrate(Model $model): bool
     {
-        if (! $this->hasRated($model)) {
+        if (!$this->hasRated($model)) {
             return false;
         }
 
         $this->ratings($model->getMorphClass())->detach($model->getKey());
 
-        event(new ModelUnRated($this,$model));
+        event(new ModelUnRated($this, $model));
         return true;
     }
 
     public function hasRated(Model $model): bool
     {
-        return ! is_null($this->ratings($model->getMorphClass())->find($model->getKey()));
+        return !is_null($this->ratings($model->getMorphClass())->find($model->getKey()));
     }
 }

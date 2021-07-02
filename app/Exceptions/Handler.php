@@ -34,6 +34,12 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+
+        $this->reportable(function (InvalidScore $exception ){
+           return response()->json([
+               'score' =>'debes ingresar un valor que este dentro de 1 y 5'
+           ]);
+        });
         $this->reportable(function (Throwable $e) {
             //
         });

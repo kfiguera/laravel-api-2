@@ -16,7 +16,7 @@ class ProductOserver
     {
         $faker = \Faker\Factory::create();
         $product->image_url = $faker->imageUrl();
-        $product->createdBy()->asociate(auth()->user());
+        $product->user()->associate(auth()->user());
     }
 
     /**
